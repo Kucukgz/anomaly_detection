@@ -1,0 +1,23 @@
+Skewness of Noise Level: 2.043611
+Kurtosis of Noise Level: 7.327645
+
+Skewness of Blurriness Score: -1.124730
+Kurtosis of Blurriness Score: 1.058991
+
+Skewness of Blurriness Score with Gaussian Filter: -0.105889
+Kurtosis of Blurriness Score with Gaussian Filter: 0.199498
+
+Skewness of Average Intensity: 0.686666
+Kurtosis of Average Intensity: 0.451859
+
+Skewness of Darkness Level: -2.390603
+Kurtosis of Darkness Level: 4.726758
+
+Skewness of Dominant Intensity: 3.251045
+Kurtosis of Dominant Intensity: 14.895390
+
+Skewness of Contrast Level: 1.395176
+Kurtosis of Contrast Level: 3.166492
+
+Skewness of Motion Estimation: 0.028089
+Kurtosis of Motion Estimation: 3.258689
