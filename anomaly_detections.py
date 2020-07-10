@@ -113,13 +113,16 @@ def figure(x):
 def anomaly_score(x):
     """To figure out anomaly scores."""
     # must calibrate it for all measurements
+    outliers = []
     for i, j in x:
         pd_i = pd.DataFrame(i)
-        isolation_forest = IsolationForest(n_estimators=100)
+        isolation_forest = IsolationForest(n_estimators=100, contamination=float(.01))
         isolation_forest.fit(pd_i.values.reshape(-1, 1))
         xx = np.linspace(pd_i.min(), pd_i.max(), len(pd_i)).reshape(-1, 1)
         anomaly_score = isolation_forest.decision_function(xx)
         outlier = isolation_forest.predict(xx)
+        isoF_outliers_values = pd_i[isolation_forest.predict(xx) == -1]
+        outliers.append(isoF_outliers_values)
         plt.figure(figsize=(10, 4))
         plt.plot(xx, anomaly_score, label='anomaly score')
         plt.fill_between(xx.T[0], np.min(anomaly_score), np.max(anomaly_score),
@@ -129,6 +132,7 @@ def anomaly_score(x):
         plt.ylabel(f'Anomaly Score')
         plt.xlabel(f'{j}')
         plt.show()
+    return outliers
 
 
 def skew_kurt(x):
@@ -139,14 +143,40 @@ def skew_kurt(x):
         print(f"Kurtosis of {j}: %f" % pd_x.kurt())
 
 
+def grabbing_outliers(x, folder):
+    """To grab outliers."""
+    outliers_list = []
+    for i in x:
+        detections = i.index.values.tolist()
+        outliers_list.append(detections)
+    return outliers_list
+
+
+def dropping_outliers(x):
+    """To drop off outliers."""
+    dropped_outliers = []
+    for i in x:
+        # print(i)
+        for j in i:
+            # print(j)
+            dropped_outliers.append(j)
+    dropped_outliers = set(dropped_outliers)
+    return dropped_outliers
+
+
 if __name__ == '__main__':
     # load images
-    folder = 'data/all'
+    folder = '/home/burak/vsc/first_part/data/testing'
     nl, bs, bs2, ai, dl, di, cl, mz = _get_measurements(folder)
     values = ((nl, 'Noise Level'), (bs, 'Blurriness Score'), (bs2, 'Blurriness Score with Gaussian Filter'),
               (ai, 'Average Intensity'), (dl, 'Darkness Level'), (di, 'Dominant Intensity'), (cl, 'Contrast Level'),
               (mz, 'Motion Estimation'))
     skew_kurt(values)
-    figure(values)
-    anomaly_score(values)
-    print()
+    # figure(values)
+    outliers = anomaly_score(values)
+    grapped_outliers = grabbing_outliers(outliers, folder)
+
+    dropped_outliers = dropping_outliers(grapped_outliers)
+    with open("outliers.txt", "w") as f:
+        for s in dropped_outliers:
+            f.write(str(s) + "\n")
