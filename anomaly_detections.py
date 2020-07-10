@@ -166,7 +166,7 @@ def dropping_outliers(x):
 
 if __name__ == '__main__':
     # load images
-    folder = '/home/burak/vsc/first_part/data/testing'
+    folder = 'data'
     nl, bs, bs2, ai, dl, di, cl, mz = _get_measurements(folder)
     values = ((nl, 'Noise Level'), (bs, 'Blurriness Score'), (bs2, 'Blurriness Score with Gaussian Filter'),
               (ai, 'Average Intensity'), (dl, 'Darkness Level'), (di, 'Dominant Intensity'), (cl, 'Contrast Level'),
