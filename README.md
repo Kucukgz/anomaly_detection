@@ -21,5 +21,5 @@
 ![Comparison of Anomaly for Blurriness](https://github.com/Kucukgz/anomaly_detection/blob/master/DatasetDistribution/source/comp_blurriness.png)
 
 
-
+![Dataset Feature Distributions](https://github.com/Kucukgz/anomaly_detection/blob/master/DatasetDistribution/source/comp_distributions.png)
 
